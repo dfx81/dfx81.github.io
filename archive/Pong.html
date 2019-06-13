@@ -1,0 +1,244 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>Pong by dfx</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scaleable=false"/>
+    </head>
+    <body style="margin: 0px; padding: 0px; overflow: hidden;">
+        <canvas id="gc"></canvas>
+        <script>
+            var c = document.getElementById("gc");
+            c.addEventListener("touchstart", down);
+            c.addEventListener("touchend", up);
+            c.addEventListener("touchmove", move);
+            c.width = window.innerWidth;
+            c.height = window.innerHeight;
+            var ctx = c.getContext("2d");
+            var w = c.width > c.height ? Math.floor(c.width / 4) : Math.floor(c.height / 4);
+            var h = c.width > c.height ? Math.floor(c.width / 100) : Math.floor(c.height / 100);
+            var eX = Math.floor(c.width / 2);
+            var eY = Math.floor(c.height / 10);
+            var pX = Math.floor(c.width / 2);
+            var pY = Math.floor(c.height - (c.height / 10));
+            var bX = Math.floor(c.width / 2);
+            var bY = Math.floor(c.height / 2);
+            var bW = c.width > c.height ? Math.floor(c.width / 50) : Math.floor(c.height / 50);
+            var pS = 3;
+            var vX = 0;
+            var vY = Math.random() > 0.5 ? -1 : 1;
+            var x = 0;
+            var y = 0;
+            var hit = 0;
+            var v = 1;
+            var pPts = 0;
+            var ePts = 0;
+            var touch = false;
+            var move = false;
+            setInterval(update, 1000/60);
+            
+            function down(event)
+            {
+                touch = true;
+                x = event.touches[0].clientX;
+                y = event.touches[0].clientY;
+            }
+            
+            function move(event)
+            {
+                touch = true;
+                x = event.touches[0].clientX;
+                y = event.touches[0].clientY;
+            }
+            
+            function up()
+            {
+            	touch = false;
+            }
+            
+            function update()
+            {
+                ctx.fillStyle = "black";
+                ctx.fillRect(0, 0, c.width, c.height);
+                ctx.fillStyle = "white";
+                ctx.font = Math.round(w / 2) + "px Serif";
+                ctx.fillText(pPts + " : " + ePts, Math.round(c.width / 2 - w / 2), Math.floor(c.height / 2 - w / 8));
+                ctx.fillRect(0, Math.round(c.height / 2), c.width, h);
+                ctx.fillRect(Math.round(pX - w / 2), pY, w, h);
+                ctx.fillStyle = "red";
+                ctx.fillStyle = "white";
+                ctx.fillRect(Math.round(eX - w / 2), eY, w, h);
+                ctx.fillRect(bX, bY, bW, bW);
+
+                bX += vX;
+                bY += vY;
+
+                if (bX > eX)
+                {
+                    eX += pS;
+                    if (eX + w / 2 >= c.width)
+                    {
+                        eX -= pS;
+                    }
+                }
+
+                if (bX < eX)
+                {
+                    eX -= pS;
+                    if (eX - w / 2 < 0)
+                    {
+                        eX += pS;
+                    }
+                }
+
+                if (bX < 0 || bX + bW >= c.width)
+                {
+                    vX *= -1;
+                }
+
+                if (bX + bW >= (pX - w / 2) - 1 && bX < (pX + w / 2) && bY + bW >= pY)
+                {
+                    hit++;
+                    if (hit == 3 && v <= 10)
+                    {
+                        v++;
+                        hit = 0;
+                    }
+
+                    vY = v * -1;
+
+                    if (bX + bW >= (pX - w / 2) && bX < ((pX - w / 2) + w / 3))
+                    {
+                    	if (!move)
+                        {
+                        	vX = 0;
+                        }
+                        
+                        else
+                        {
+                            vX = -1 * v;
+                        }
+                    }
+
+                    else if (bX + bW >= ((pX - w / 2) + w / 3) && bX < ((pX - w / 2) + 2 * (w / 3)))
+                    {
+                        if (!move)
+                        {
+                            vX = 0;
+                        }
+
+                        else
+                        {
+                            vX = x > pX ? 1 : -1;
+                        }
+                    }
+
+                    else if (bX + bW >= ((pX - w / 2) + 2 * (w / 3)) && bX < (pX + w / 2))
+                    {
+                    	if (!move)
+                        {
+                        	vX = 0;
+                        }
+                        
+                        else
+                        {
+                            vX = v;
+                        }
+                    }
+                }
+
+                if (bX + bW >= (eX - w / 2) && bX < (eX + w / 2) && bY <= eY + h)
+                {
+                    hit++;
+                    if (hit == 3 && v <= 10)
+                    {
+                        v++;
+                        hit = 0;
+                    }
+
+                    vY = v;
+                    vX = Math.random() > 0.5 ? Math.round(Math.random()) * 1 : Math.round(Math.random()) * -1;
+                    vX = vX * Math.floor(1 + Math.random() * v);
+                }
+
+                if (bY > pY && (bX < pX - w / 2 || bX >= pX + w / 2) || bY < eY + h && (bX < eX - w / 2 || bX >= eX + w / 2))
+                {
+                    if (bY > pY)
+                    {
+                        ePts++;
+                        if (ePts == 10)
+                        {
+                            pPts = 0;
+                            ePts = 0;
+                        }
+                        vY = -1;
+                    }
+                    
+                    if (bY < eY + h)
+                    {
+                        pPts++;
+                        if (pPts == 10)
+                        {
+                            ePts = 0;
+                            pPts = 0;
+                        }
+                        
+                        vY = 1;
+                    }
+
+                    bX = Math.floor(c.width / 2);
+                    bY = Math.floor(c.height / 2);
+                    vX = 0;
+                    v = 1
+                }
+
+                if (touch)
+                {
+                    if (pX < x)
+                    {
+                    	move = true;
+                    	pX += pS;
+                        if (pX > x)
+                        {
+                        	pX = x;
+                            move = false;
+                        }
+                    }
+                    
+                    if (x < pX)
+                    {
+                    	move = true;
+                    	pX -= pS;
+                        if (x > pX)
+                        {
+                        	pX = x;
+                            move = false;
+                        }
+                    }
+                    
+                    if (x == pX)
+                    {
+                    	move = false;
+                    }
+
+                    if (pX - w / 2 < 0)
+                    {
+                        pX += pS;
+                        move = false;
+                    }
+
+                    if (pX + w / 2 >= c.width)
+                    {
+                        pX -= pS;
+                        move = false;
+                    }
+                }
+                
+                else
+                {
+                	move = false;
+                }
+            }
+        </script>
+    </body>
+</html>
