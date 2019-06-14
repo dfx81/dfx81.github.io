@@ -12,6 +12,8 @@
             c.addEventListener("touchstart", down);
             c.addEventListener("touchend", up);
             c.addEventListener("touchmove", move);
+            c.addEventListener("keydown", downKb);
+            c.addEventListener("keyup", upKb);
             c.width = window.innerWidth;
             c.height = window.innerHeight;
             var ctx = c.getContext("2d");
@@ -27,8 +29,8 @@
             var pS = 3;
             var vX = 0;
             var vY = Math.random() > 0.5 ? -1 : 1;
-            var x = 0;
-            var y = 0;
+            var x = pX;
+            var y = pY;
             var hit = 0;
             var v = 1;
             var pPts = 0;
@@ -44,6 +46,20 @@
                 y = event.touches[0].clientY;
             }
             
+            function downKb(event)
+            {
+                touch = true;
+                if (event.keyCode == 37)
+                {
+                    x -= pS;
+                }
+
+                if (event.keyCode == 39)
+                {
+                    y += pS;
+                }
+            }
+
             function move(event)
             {
                 touch = true;
@@ -54,6 +70,11 @@
             function up()
             {
             	touch = false;
+            }
+
+            function upKb()
+            {
+                touch = false;
             }
             
             function update()
