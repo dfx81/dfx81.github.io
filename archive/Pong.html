@@ -26,7 +26,7 @@
             var bX = Math.floor(c.width / 2);
             var bY = Math.floor(c.height / 2);
             var bW = c.width > c.height ? Math.floor(c.width / 50) : Math.floor(c.height / 50);
-            var pS = 3;
+            var pS = c.width > c.height ? 10 : 5;
             var vX = 0;
             var vY = Math.random() > 0.5 ? -1 : 1;
             var x = pX;
@@ -48,6 +48,7 @@
             
             function downKb(event)
             {
+                move = true;
                 if (event.keyCode == 37)
                 {
                     pX -= pS;
@@ -73,7 +74,7 @@
 
             function upKb()
             {
-                touch = false;
+                move = false;
             }
             
             function update()
@@ -252,11 +253,6 @@
                         pX -= pS;
                         move = false;
                     }
-                }
-                
-                else
-                {
-                	move = false;
                 }
             }
         </script>
