@@ -48,15 +48,15 @@
             
             function downKb(event)
             {
-                move = true;
+                touch = true;
                 if (event.keyCode == 37)
                 {
-                    pX -= pS;
+                    x -= pS;
                 }
 
                 if (event.keyCode == 39)
                 {
-                    pX += pS;
+                    x += pS;
                 }
             }
 
@@ -74,7 +74,7 @@
 
             function upKb()
             {
-                move = false;
+                touch = false;
             }
             
             function update()
