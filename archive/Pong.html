@@ -28,11 +28,11 @@
             var bW = c.width > c.height ? Math.floor(c.width / 50) : Math.floor(c.height / 50);
             var pS = c.width > c.height ? 6 : 3;
             var vX = 0;
-            var vY = Math.random() > 0.5 ? -1 : 1;
+            var vY = Math.random() > 0.5 ? -3 : 3;
             var x = pX;
             var y = pY;
             var hit = 0;
-            var v = 5;
+            var v = 3;
             var pPts = 0;
             var ePts = 0;
             var touch = false;
@@ -209,7 +209,7 @@
                             pPts = 0;
                             ePts = 0;
                         }
-                        vY = -1;
+                        vY = -3;
                     }
                     
                     if (bY < eY + h)
@@ -221,13 +221,13 @@
                             pPts = 0;
                         }
                         
-                        vY = 5;
+                        vY = 3;
                     }
 
                     bX = Math.floor(c.width / 2);
                     bY = Math.floor(c.height / 2);
                     vX = 0;
-                    v = 1
+                    v = 3;
                 }
 
                 if (touch)
