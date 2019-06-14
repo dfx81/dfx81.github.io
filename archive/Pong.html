@@ -26,13 +26,13 @@
             var bX = Math.floor(c.width / 2);
             var bY = Math.floor(c.height / 2);
             var bW = c.width > c.height ? Math.floor(c.width / 50) : Math.floor(c.height / 50);
-            var pS = c.width > c.height ? 10 : 5;
+            var pS = c.width > c.height ? 6 : 3;
             var vX = 0;
             var vY = Math.random() > 0.5 ? -1 : 1;
             var x = pX;
             var y = pY;
             var hit = 0;
-            var v = 1;
+            var v = 5;
             var pPts = 0;
             var ePts = 0;
             var touch = false;
@@ -119,15 +119,25 @@
                     }
                 }
 
-                if (bX < 0 || bX + bW >= c.width)
+                if (bX <= 0 || bX + bW >= c.width - 1)
                 {
+                    if (bX < 0)
+                    {
+                        bX = 0;
+                    }
+
+                    if (bX + bW >= c.width)
+                    {
+                        bX = c.width - bW;
+                    }
+
                     vX *= -1;
                 }
 
                 if (bX + bW >= (pX - w / 2) - 1 && bX < (pX + w / 2) && bY + bW >= pY)
                 {
                     hit++;
-                    if (hit == 3 && v <= 10)
+                    if (hit == 3 && v <= 20)
                     {
                         v++;
                         hit = 0;
@@ -211,7 +221,7 @@
                             pPts = 0;
                         }
                         
-                        vY = 1;
+                        vY = 5;
                     }
 
                     bX = Math.floor(c.width / 2);
@@ -276,7 +286,7 @@
                     if (right)
                     {
                         pX += pS;
-                        if (pX + w / 2 > c.width)
+                        if (pX + w / 2 >= c.width)
                         {
                             pX = c.width - (w / 2);
                         }
