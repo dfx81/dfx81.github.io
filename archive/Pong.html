@@ -37,6 +37,9 @@
             var ePts = 0;
             var touch = false;
             var move = false;
+            var key = false;
+            var left = false;
+            var right = false;
             setInterval(update, 1000/60);
             
             function down(event)
@@ -48,15 +51,16 @@
             
             function downKb(event)
             {
-                touch = true;
+                key = true;
+                move = true;
                 if (event.keyCode == 37)
                 {
-                    x -= pS;
+                    left = true;
                 }
 
                 if (event.keyCode == 39)
                 {
-                    x += pS;
+                    right = true;
                 }
             }
 
@@ -74,7 +78,10 @@
 
             function upKb()
             {
-                touch = false;
+                key = false;
+                move = false;
+                left = false;
+                right = false;
             }
             
             function update()
@@ -252,6 +259,27 @@
                     {
                         pX -= pS;
                         move = false;
+                    }
+                }
+
+                else if (key)
+                {
+                    if (left)
+                    {
+                        pX -= pS;
+                        if (pX - w / 2 < 0)
+                        {
+                            pX = w / 2;
+                        }
+                    }
+
+                    if (right)
+                    {
+                        pX += pS;
+                        if (pX + w / 2 > c.width)
+                        {
+                            pX = c.width - (w / 2);
+                        }
                     }
                 }
             }
