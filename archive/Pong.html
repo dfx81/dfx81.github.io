@@ -12,8 +12,8 @@
             c.addEventListener("touchstart", down);
             c.addEventListener("touchend", up);
             c.addEventListener("touchmove", move);
-            c.addEventListener("keydown", downKb);
-            c.addEventListener("keyup", upKb);
+            document.addEventListener("keydown", downKb);
+            document.addEventListener("keyup", upKb);
             c.width = window.innerWidth;
             c.height = window.innerHeight;
             var ctx = c.getContext("2d");
