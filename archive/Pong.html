@@ -40,7 +40,7 @@
             var key = false;
             var left = false;
             var right = false;
-            setInterval(update, 1000/60);
+            var game = window.setInterval(update, 1000/60);
             
             function down(event)
             {
@@ -84,7 +84,7 @@
                 right = false;
             }
             
-            var game = function update()
+            function update()
             {
                 ctx.fillStyle = "black";
                 ctx.fillRect(0, 0, c.width, c.height);
@@ -210,7 +210,7 @@
                             ctx.fillRect(Math.round(eX - w / 2), eY, w, h);
                             ctx.fillRect(bX, bY, bW, bW);
                             
-                            clearInterval(game);
+                            window.clearInterval(game);
                         }
                         vY = -3;
                     }
@@ -224,7 +224,7 @@
                             ctx.fillRect(Math.round(eX - w / 2), eY, w, h);
                             ctx.fillRect(bX, bY, bW, bW);
 
-                            clearInterval(game);
+                            window.clearInterval(game);
                         }
                         
                         vY = 3;
