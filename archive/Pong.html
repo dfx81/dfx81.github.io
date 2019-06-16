@@ -93,7 +93,6 @@
                 ctx.fillText(pPts + " : " + ePts, Math.round(c.width / 2 - w / 2), Math.floor(c.height / 2 - w / 8));
                 ctx.fillRect(0, Math.round(c.height / 2), c.width, h);
                 ctx.fillRect(Math.round(pX - w / 2), pY, w, h);
-                ctx.fillStyle = "red";
                 ctx.fillStyle = "white";
                 ctx.fillRect(Math.round(eX - w / 2), eY, w, h);
                 ctx.fillRect(bX, bY, bW, bW);
@@ -206,11 +205,7 @@
                         ePts++;
                         if (ePts == 10)
                         {
-                            ctx.fillStyle = "black";
-                            ctx.fillRect(Math.round(eX - w / 2), eY, w, h);
-                            ctx.fillRect(bX, bY, bW, bW);
-                            
-                            window.clearInterval(game);
+                            endGame();
                         }
                         vY = -3;
                     }
@@ -220,11 +215,7 @@
                         pPts++;
                         if (pPts == 10)
                         {
-                            ctx.fillStyle = "black";
-                            ctx.fillRect(Math.round(eX - w / 2), eY, w, h);
-                            ctx.fillRect(bX, bY, bW, bW);
-
-                            window.clearInterval(game);
+                            endGame();
                         }
                         
                         vY = 3;
@@ -240,29 +231,29 @@
                 {
                     if (pX < x)
                     {
-                    	move = true;
-                    	pX += pS;
+                      	move = true;
+                      	pX += pS;
                         if (pX > x)
                         {
-                        	pX = x;
+                          	pX = x;
                             move = false;
                         }
                     }
                     
                     if (x < pX)
                     {
-                    	move = true;
-                    	pX -= pS;
+                      	move = true;
+                      	pX -= pS;
                         if (x > pX)
                         {
-                        	pX = x;
+                          	pX = x;
                             move = false;
                         }
                     }
                     
                     if (x == pX)
                     {
-                    	move = false;
+                      	move = false;
                     }
 
                     if (pX - w / 2 < 0)
@@ -298,6 +289,23 @@
                         }
                     }
                 }
+            }
+            
+            function endGame()
+            {
+                ctx.fillStyle = "black";
+                ctx.fillRect(0, 0, c.width, c.height);
+                ctx.fillStyle = "white";
+                ctx.font = Math.round(w / 2) + "px Serif";
+                ctx.fillText(pPts + " : " + ePts, Math.round(c.width / 2 - w / 2), Math.floor(c.height / 2 - w / 8));
+                ctx.fillRect(0, Math.round(c.height / 2), c.width, h);
+                ctx.fillRect(Math.round(pX - w / 2), pY, w, h);
+                ctx.fillStyle = "white";
+                ctx.fillRect(Math.round(eX - w / 2), eY, w, h);
+                ctx.fillStyle = "black";
+                ctx.fillRect(bX, bY, bW, bW);
+                
+                window.clearInterval(game);
             }
         </script>
     </body>
