@@ -24,5 +24,6 @@ I'm striving to become a programmer anyway so why not setup
 a github account already?
 
 Yeah. I might do something with my new website so check out 
-every so often to see what's new. - 
-[dfx](https://dfx81.github.io)
+every so often to see what's new.
+
+-dfx
