@@ -17,6 +17,8 @@ p {
 a {
 	font-size: 32px;
 	font-style: bold;
+	color: white;
+	text-decoration: none;
 }
 
 h1 {
