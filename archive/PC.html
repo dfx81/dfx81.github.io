@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+<head>
+<title>PC Disassembly</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script>
+var c, ctx;
+window.onload = setup;
+
+function setup()
+{
+    c = document.getElementById("gc");
+    c.width = 640;
+    c.height = 480;
+    c.addEventListener("touchstart", touch);
+    c.addEventListener("click", click);
+    ctx = c.getContext("2d");
+    
+    init();
+}
+
+var board = new Image();
+var psu = new Image();
+var cab1P = new Image();
+var cab2P = new Image();
+var cab3P = new Image();
+var cab4P = new Image();
+var cab1U = new Image();
+var cab2U = new Image();
+var cab3U = new Image();
+var cab4U = new Image();
+var cpu = new Image();
+var fanP = new Image();
+var fanU = new Image();
+var cd = new Image();
+var hd = new Image();
+var ide = new Image();
+var sata = new Image();
+var mem1 = new Image();
+var mem2 = new Image();
+var card = new Image();
+
+var psuOn, cab1On, cab2On, cab3On, cab4On, cab1Off, cab2Off, cab3Off, cab4Off, cpuOn, fanOn, fanOff, cdOn, hdOn, sataOn, ideOn, mem1On, mem2On, cardOn;
+
+var gameloop;
+
+function init()
+{
+    debug = false;
+    
+    board.src = "pc_comp/board.png";
+    psu.src = "pc_comp/psu.png";
+    cab1P.src = "pc_comp/psu_cab1_p.png";
+    cab2P.src = "pc_comp/psu_cab2_p.png";
+    cab3P.src = "pc_comp/psu_cab3_p.png";
+    cab4P.src = "pc_comp/psu_cab4_p.png";
+    cab1U.src = "pc_comp/psu_cab1_u.png";
+    cab2U.src = "pc_comp/psu_cab2_u.png";
+    cab3U.src = "pc_comp/psu_cab3_u.png";
+    cab4U.src = "pc_comp/psu_cab4_u.png";
+    cpu.src = "pc_comp/cpu.png";
+    fanP.src = "pc_comp/cpufan_p.png";
+    fanU.src = "pc_comp/cpufan_u.png";
+    cd.src = "pc_comp/cdrom.png";
+    hd.src = "pc_comp/hdisk.png";
+    ide.src = "pc_comp/ide.png";
+    sata.src = "pc_comp/sata.png";
+    mem1.src = "pc_comp/memmod1.png";
+    mem2.src = "pc_comp/memmod2.png";
+    card.src = "pc_comp/gcard.png";
+    
+    psuOn = cab1On = cab2On = cab3On = cab4On = cpuOn = fanOn = cdOn = hdOn = sataOn = ideOn = mem1On = mem2On = cardOn = true;
+    cab1Off = cab2Off = cab3Off = cab4Off = fanOff = false;
+    
+    gameloop = window.setInterval(update, 1000/30);
+}
+
+var tx, ty;
+
+function touch(evt)
+{
+    tx = evt.touches[0].clientX;
+    ty = evt.touches[0].clientY;
+}
+
+function click(evt)
+{
+    tx = evt.clientX;
+    ty = evt.clientY;
+}
+
+function update()
+{
+    cls();
+    ctx.drawImage(board, 0, 0);
+    if (psuOn) ctx.drawImage(psu, 0, 0);
+    if (cab1On) ctx.drawImage(cab1P, 0, 0);
+    if (cab1Off) ctx.drawImage(cab1U, 0, 0);
+    if (cab2On) ctx.drawImage(cab2P, 0, 0);
+    if (cab2Off) ctx.drawImage(cab2U, 0, 0);
+    if (cab3On) ctx.drawImage(cab3P, 0, 0);
+    if (cab3Off) ctx.drawImage(cab3U, 0, 0);
+    if (cab4On) ctx.drawImage(cab4P, 0, 0);
+    if (cab4Off) ctx.drawImage(cab4U, 0, 0);
+    if (cpuOn) ctx.drawImage(cpu, 0, 0);
+    if (fanOn) ctx.drawImage(fanP, 0, 0);
+    if (fanOff) ctx.drawImage(fanU, 0, 0);
+    if (cdOn) ctx.drawImage(cd, 0, 0);
+    if (hdOn) ctx.drawImage(hd, 0, 0);
+    if (sataOn) ctx.drawImage(sata, 0, 0);
+    if (ideOn) ctx.drawImage(ide, 0, 0);
+    if (mem1On) ctx.drawImage(mem1, 0, 0);
+    if (mem2On) ctx.drawImage(mem2, 0, 0);
+    if (cardOn) ctx.drawImage(card, 0, 0);
+    
+    if (debug)
+    {
+        ctx.fillStyle = "#0000ff81";
+        if (cab1On) ctx.fillRect(355, 45, 30, 65); //cab1
+        if (cab2On) ctx.fillRect(320, 220, 30, 70); //cab2
+        if (cab3On) ctx.fillRect(355, 270, 30, 60); //cab3
+        if (cab4On) ctx.fillRect(70, 305, 25, 20); //cab4
+        if (sataOn) ctx.fillRect(360, 130, 25, 80); //sata1
+        if (sataOn) ctx.fillRect(310, 310, 25, 50); //sata2
+        if (ideOn) ctx.fillRect(360, 335, 25, 50); //ide1
+        if (ideOn) ctx.fillRect(295, 405, 40, 25); //ide2
+        if (cab1Off && cab2Off && cab3Off && cab4Off && psuOn) ctx.fillRect(15, 15, 205, 185); //psu
+        if (fanOn) ctx.fillRect(210, 200, 20, 40); //fanOn
+        if (fanOff) ctx.fillRect(90, 210, 110, 90); //fanOff
+        if (!fanOn && !fanOff && cpuOn) ctx.fillRect(100, 230, 85, 65); //cpu
+        if (mem1On) ctx.fillRect(245, 200, 20, 125); //mem1
+        if (mem2On) ctx.fillRect(275, 200, 20, 135); //mem2
+        if (cardOn) ctx.fillRect(12, 330, 240, 50); //card
+        if (!sataOn && (cab1Off || (!cab1On && !cab1Off)) && cdOn) ctx.fillRect(385, 30, 30, 195); //cdrom
+        if (!ideOn && (cab3Off || (!cab3On && !cab3Off)) && hdOn) ctx.fillRect(385, 270, 30, 145); //hdisk
+    }
+    
+    if (cab1On && tx >= 355 && tx < 385 && ty >= 45 && ty < 110)
+    {
+        cab1On = false;
+        cab1Off = true;
+    }
+    
+    if (cab2On && tx >= 320 && tx < 350 && ty >= 220 && ty < 290)
+    {
+        cab2On = false;
+        cab2Off = true;
+    }
+    
+    if (cab3On && tx >= 355 && tx < 385 && ty >= 270 && ty < 330)
+    {
+        cab3On = false;
+        cab3Off = true;
+    }
+    
+    if (cab4On && tx >= 70 && tx < 95 && ty >= 305 && ty < 325)
+    {
+        cab4On = false;
+        cab4Off = true;
+    }
+    
+    if (sataOn && (tx >= 350 && tx < 380 && ty >= 130 && ty < 210) || (tx >= 310 && tx < 335 && ty >= 310 && ty < 360))
+    {
+        sataOn = false;
+    }
+    
+    if (ideOn && (tx >= 360 && tx < 385 && ty >= 335 && ty < 385) || (tx >= 295 && tx < 335 && ty >= 405 && ty < 430))
+    {
+        ideOn = false;
+    }
+    
+    if (cab1Off && cab2Off && cab3Off && cab4Off && tx >= 15 && tx < 220 && ty >= 15 && ty < 200)
+    {
+        psuOn = false;
+        cab1Off = false;
+        cab2Off = false;
+        cab3Off = false;
+        cab4Off = false;
+    }
+    
+    if (fanOn && tx >= 210 && tx < 230 && ty >= 200 && ty < 240)
+    {
+        fanOn = false;
+        fanOff = true;
+    }
+    
+    if (!fanOn && !fanOff && tx >= 100 && tx < 185 && ty >= 230 && ty < 295)
+    {
+        cpuOn = false;
+    }
+    
+    if (!fanOn && fanOff && tx >= 90 && tx < 200 && ty >= 210 && ty < 300)
+    {
+        fanOff = false;
+        cpuOn = true;
+    }
+    
+    if (cardOn && tx >= 12 && tx < 252 && ty >= 330 && ty < 380)
+    {
+        cardOn = false;
+    }
+    
+    if (mem1On && tx >= 245 && tx < 265 && ty >= 200 && ty < 325)
+    {
+        mem1On = false;
+    }
+    
+    if (mem2On && tx >= 275 && tx < 295 && ty >= 200 && ty < 335)
+    {
+        mem2On = false;
+    }
+    
+    if (!sataOn && (cab1Off || (!cab1On && !cab1Off)) && cdOn && tx >= 385 && tx < 435 && ty >= 30 && ty < 225)
+    {
+        cdOn = false;
+    }
+    
+    if (!ideOn && (cab3Off || (!cab3On && !cab3Off)) && hdOn && tx >= 385 && tx < 435 && ty >= 270 && ty < 415)
+    {
+        hdOn = false;
+    }
+}
+
+function cls()
+{
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0, 0, c.width, c.height);
+}
+</script>
+</head>
+<body style="margin: 0px; padding: 0px">
+<canvas id="gc" style="display: block; margin: auto; padding: auto; border-radius: 8px"></canvas>
+</body>
+</html>
