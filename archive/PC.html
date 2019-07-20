@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>PC Disassembly</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0"/>
 <script>
 var c, ctx;
 window.onload = setup;
@@ -79,14 +79,14 @@ var tx, ty;
 
 function touch(evt)
 {
-    tx = evt.touches[0].clientX;
-    ty = evt.touches[0].clientY;
+    tx = evt.touches[0].pageX;
+    ty = evt.touches[0].pageY;
 }
 
 function click(evt)
 {
-    tx = evt.clientX;
-    ty = evt.clientY;
+    tx = evt.pageX;
+    ty = evt.pageY;
 }
 
 function update()
@@ -228,7 +228,7 @@ function cls()
 }
 </script>
 </head>
-<body style="margin: 0px; padding: 0px">
+<body style="margin: 0px; padding: 0px; width: 100%">
 <canvas id="gc" style="display: block; margin: auto; padding: auto; border-radius: 8px"></canvas>
 </body>
 </html>
