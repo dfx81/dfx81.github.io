@@ -251,6 +251,11 @@ function cmd(evt)
             hitbox = false;
             console.value = "";
         }
+        
+        if (console.value == "-debug 0")
+        {
+            window.location.href = window.location.href.replace("#debug", "");
+        }
     }
 }
 
