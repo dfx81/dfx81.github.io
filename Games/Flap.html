@@ -8,7 +8,7 @@
 
 <body id="debug" style="width: 100%; margin: 0px; padding: 0px; overflow: auto; touch-action: none;">
     <canvas style="width: 80%; height: 80%; border: 2px solid black; border-radius: 24px; display: block; padding: 0px; margin: auto" id="gc" style="margin: auto;"></canvas>
-    <p id="about" style="display: block; width: 80%; font-size: 8px; text-align: center; margin: auto; padding: 4px;">A Flappy Bird clone by Danial Fitri. Tap/Press any key to play/retry</p>
+    <p id="about" style="display: block; width: 80%; font-size: 8px; text-align: center; margin: auto; padding: 4px;">A Flappy Bird clone by dfx. Tap/Press any key to play/retry</p>
     <input type="text" id="devtools" style="width: 80%; margin: auto; padding: auto; display: none"></input>
     
     <script>
@@ -91,13 +91,15 @@
         
         function down(evt)
         {
-            vY = g;
             if (!over)
+            {
                 play = true;
-                
+                vY = g;
+            }
+            
             if (String.fromCharCode(evt.keyCode) == 'p' || String.fromCharCode(evt.keyCode) == 'P')
             {
-                play = play ? false : true;
+                play = false;
             }
             
             if (over)
