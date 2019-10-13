@@ -1,0 +1,275 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+      <title>Kulimori</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1, user-scaleable=false"/>
+      <style>
+          *
+          {
+              box-sizing : border-box;
+          }
+          
+          .cards
+          {
+              color: white;
+              font-size: 2em;
+              text-align: center;
+              border-radius: 4px;
+              width: calc(25% - 15px);
+              height: calc(25% - 15px);
+              margin: 5px;
+              padding: auto;
+              background-color: hotpink;
+              
+              transition: background-color 0.5s;
+          }
+          
+          .cards:hover
+          {
+              background-color: deeppink;
+              transition: background-color 0.25s;
+          }
+          
+          html
+          {
+              width: 100%;
+              height: 100%;
+          }
+          
+          .board
+          {
+              width: 20em;
+              height: 20em;
+              align-items: stretch;
+              display: flex;
+              justify-content: center;
+              padding: 0;
+              position: absolute;
+              top: calc(50% - 10em + 4vh);
+              left: calc(50% - 10em);
+              flex-wrap: wrap;
+          }
+          
+          .header
+          {
+              width: 100%;
+              height: 8vh;
+              color: white;
+              background-color: hotpink;
+              padding: 10px;
+              margin: 0px;
+              font-size: 4vh;
+              opacity: 25%;
+          }
+      </style>
+  </head>
+  <body id="b" style="background-color: pink; width: 100%; height: 100%; overflow: hidden; touch-action: none; padding: 0; margin: 0;">
+      <div class="header">Kulimori | Score: 5000</div>
+      <div class="board">
+          <div class="cards"></div>
+          <div class="cards"></div>
+          <div class="cards"></div>
+          <div class="cards"></div>
+          <div class="cards"></div>
+          <div class="cards"></div>
+          <div class="cards"></div>
+          <div class="cards"></div>
+          <div class="cards"></div>
+          <div class="cards"></div>
+          <div class="cards"></div>
+          <div class="cards"></div>
+          <div class="cards"></div>
+          <div class="cards"></div>
+          <div class="cards"></div>
+          <div class="cards"></div>
+      </div>
+      <script>
+          var board = 4 * 4;
+          
+          var select1 = -1;
+          var select2 = -1;
+          
+          var cardDat = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+          var cardAns = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+          var cardVal = [];
+          
+          for (var i = 0; i != board / 2; i++)
+          {
+              var pick = Math.floor(Math.random() * cardDat.length);
+              cardVal.push(cardDat[pick]);
+              cardVal.push(cardAns[pick]);
+              cardDat.splice(pick, 1);
+              cardAns.splice(pick, 1);
+          }
+          
+          var match = [];
+          var deck = [];
+          
+          for (var i = 0; i != board; i++)
+          {
+              var pick = Math.floor(Math.random() * cardVal.length);
+              deck.push(cardVal[pick]);
+              cardVal.splice(pick, 1);
+          }
+          
+          var cards = document.getElementsByClassName("cards");
+          for (var i = 0; i != cards.length; i++)
+          {
+              cards[i].addEventListener("click", click);
+              cards[i].id = i;
+          }
+          
+          var block = false;
+          var start = false;
+          
+          function click()
+          {
+              if (!start)
+              {
+                  last = Date.now();
+                  window.requestAnimationFrame(score);
+                  start = true;
+              }
+              if (!block)
+              {
+                if (select1 == -1)
+                {
+                    delay = 1;
+                    
+                    var dupe = false;
+                    for (var i = 0; i != match.length; i++)
+                    {
+                        if (this.id == match[i])
+                            dupe = true
+                    }
+                    if (!dupe)
+                    {
+                        select1 = this.id;
+                    }
+                }
+                
+                else if (select1 != -1 && select1 != this.id)
+                {
+                    var dupe = false;
+                    for (var i = 0; i != match.length; i++)
+                    {
+                        if (this.id == match[i])
+                            dupe = true
+                    }
+                    if (!dupe)
+                    {
+                        select2 = this.id;
+                    }
+                }
+              }
+              
+              if (select1 != -1 && select2 != -1)
+                  block = true;
+              
+              window.requestAnimationFrame(update);
+          }
+          
+          function update()
+          {
+              if (select1 != -1)
+              {
+                  cards[select1].style.backgroundColor = "lightpink";
+                  cards[select1].innerHTML = deck[select1];
+              }
+              
+              if (select2 != -1)
+              {
+                  cards[select2].style.backgroundColor = "lightpink";
+                  cards[select2].innerHTML = deck[select2];
+              }
+              
+              
+              if (select1 != -1 && select2 != -1)
+              {
+                  delay = 250;
+                  
+                  cards[select1].innerHTML = deck[select1];
+                  cards[select2].innerHTML = deck[select2];
+                  
+                  if (deck[select1] == deck[select2])
+                  {
+                      match.push(select1);
+                      match.push(select2);
+                      
+                      for (var i = 0; i != match.length; i++)
+                      {
+                          cards[match[i]].style.backgroundColor = "lightpink";
+                          cards[match[i]].innerHTML = deck[match[i]];
+                          delay = 75;
+                      }
+                      
+                      window.requestAnimationFrame(update);
+                      
+                      window.setTimeout(hide, delay);
+                  }
+                  
+                  else
+                  {
+                      pts -= 100;
+                      if (pts < 0) pts = 0;
+                      window.setTimeout(hide, delay);
+                  }
+              }
+              
+              for (var i = 0; i != match.length; i++)
+              {
+                  cards[match[i]].style.backgroundColor = "lightpink";
+                  cards[match[i]].innerHTML = deck[match[i]];
+              }
+          }
+          
+          var delay;
+          
+          function hide()
+          {
+              if (select1 == select2)
+                  delay = 75;
+              else
+                  delay = 150;
+              cards[select1].innerHTML = " ";
+              cards[select2].innerHTML = " ";
+              cards[select1].style.backgroundColor = "hotpink";
+              cards[select2].style.backgroundColor = "hotpink";
+              
+              select1 = -1;
+              select2 = -1;
+              
+              window.setTimeout(function()
+              {
+                  block = false;
+              }, delay);
+          }
+          
+          var time = 0;
+          var last = Date.now();
+          var now = 0;
+          var pts = 5000;
+          
+          function score()
+          {
+              now = Date.now();
+              pts -= (now - last) / 1000;
+              if (pts < 0) pts = 0;
+              last = now;
+              
+              if (pts < 10)
+                  pStr = "000" + Math.floor(pts);
+              else if (pts < 100)
+                  pStr = "00" + Math.floor(pts);
+              else if (pts < 1000)
+                  pStr = "0" + Math.floor(pts);
+              else
+                  pStr = Math.floor(pts);
+              
+              document.getElementsByClassName("header")[0].innerHTML = "Kulimori | Score: " + pStr;
+              if (match.length != board) window.requestAnimationFrame(score);
+          }
+      </script>
+  </body>
+</html>
