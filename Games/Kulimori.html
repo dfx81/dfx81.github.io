@@ -16,11 +16,12 @@
               font-size: 2em;
               text-align: center;
               border-radius: 4px;
-              width: calc(25% - 15px);
+              max-width: calc(25% - 15px);
               height: calc(25% - 15px);
               margin: 5px;
               padding: auto;
               background-color: hotpink;
+              overflow: hidden;
               
               transition: background-color 0.5s;
           }
@@ -39,7 +40,11 @@
           
           img
           {
-              height: 100%;
+              width: 100%;
+              height: auto;
+              object-fit: contain;
+              margin: auto;
+              padding: auto;
               display: none;
               transition: display 0.25s;
           }
