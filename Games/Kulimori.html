@@ -16,10 +16,15 @@
               font-size: 2em;
               text-align: center;
               border-radius: 4px;
-              width: calc(25% - 15px);
-              height: calc(25% - 15px);
-              margin: 5px;
-              padding: 2px;
+              width: calc(100% / 3 - 4px);
+              //width: 32%;
+              //height: 20em;
+              height: calc(100% / 4 - 4px);
+              //margin: 5px;
+              //padding: 2px;
+              //padding-bottom: calc(25% - 15px);
+              //position: relative;
+              //margin-bottom: 2%;
               background-color: hotpink;
               overflow: hidden;
               
@@ -52,15 +57,16 @@
           
           .board
           {
-              width: 20em;
-              height: 20em;
+              width: 100%;
+              height: calc(100% - 8vh - 2px);
               align-items: stretch;
               display: flex;
-              justify-content: center;
-              padding: 0;
-              position: absolute;
-              top: calc(50% - 10em + 4vh);
-              left: calc(50% - 10em);
+              flex-direction: "row";
+              justify-content: space-between;
+              padding: 8px;
+              //position: absolute;
+              //top: calc(50% - 10em + 4vh);
+              //left: calc(50% - 10em);
               flex-wrap: wrap;
           }
           
@@ -72,6 +78,7 @@
               background-color: hotpink;
               padding: 10px;
               margin: 0px;
+              margin-bottom: 4px;
               font-size: 4vh;
               opacity: 25%;
           }
@@ -92,13 +99,13 @@
           <div class="cards"><img class="i" id="J"></img></div>
           <div class="cards"><img class="i" id="K"></img></div>
           <div class="cards"><img class="i" id="L"></img></div>
-          <div class="cards"><img class="i" id="M"></img></div>
+          <!--div class="cards"><img class="i" id="M"></img></div>
           <div class="cards"><img class="i" id="N"></img></div>
           <div class="cards"><img class="i" id="O"></img></div>
-          <div class="cards"><img class="i" id="P"></img></div>
+          <div class="cards"><img class="i" id="P"></img></div-->
       </div>
       <script>
-          var board = 4 * 4;
+          var board = 4 * 3;
           
           var select1 = -1;
           var select2 = -1;
@@ -136,8 +143,32 @@
           var cards = document.getElementsByClassName("cards");
           for (var i = 0; i != cards.length; i++)
           {
+              if (window.innerWidth > window.innerHeight)
+              {
+                  cards[i].style.width = "calc(100% / 6 - 8px)";
+                  cards[i].style.height = "calc(100% / 2 - 8px)";
+              }
               cards[i].addEventListener("click", click);
               cards[i].id = i;
+          }
+          
+          window.onresize = size;
+          
+          function size()
+          {
+              for (var i = 0; i != cards.length; i++)
+              {
+                  if (window.innerWidth > window.innerHeight)
+                  {
+                      cards[i].style.width = "calc(100% / 6 - 8px)";
+                      cards[i].style.height = "calc(100% / 2 - 8px)";
+                  }
+                  else
+                  {
+                      cards[i].style.width = "calc(100% / 3 - 4px)";
+                      cards[i].style.height = "calc(100% / 4 - 4px)";
+                  }
+              }
           }
           
           var block = false;
