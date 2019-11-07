@@ -12,7 +12,7 @@
           
           .cards
           {
-              color: white;
+              color: darkred;
               font-size: 2em;
               text-align: center;
               border-radius: 4px;
@@ -25,7 +25,7 @@
               //padding-bottom: calc(25% - 15px);
               //position: relative;
               //margin-bottom: 2%;
-              background-color: hotpink;
+              background-color: darkred;
               overflow: hidden;
               
               transition: background-color 0.5s;
@@ -33,7 +33,7 @@
           
           .cards:hover
           {
-              background-color: deeppink;
+              background-color: yellow;
               transition: background-color 0.25s;
           }
           
@@ -76,17 +76,16 @@
           {
               width: 100%;
               height: 8vh;
-              color: white;
-              background-color: hotpink;
+              color: yellow;
+              background-color: darkblue;
               padding: 10px;
               margin: 0px;
               margin-bottom: 4px;
               font-size: 4vh;
-              opacity: 25%;
           }
       </style>
   </head>
-  <body id="b" style="background-color: pink; width: 100%; height: 100%; overflow: hidden; touch-action: none; padding: 0; margin: 0;">
+  <body id="b" style="background-color: red; width: 100%; height: 100%; overflow: hidden; touch-action: none; padding: 0; margin: 0;">
       <div class="header">Kulimori | Score: 5000</div>
       <div class="board">
           <div class="cards"><img class="i" id="A"></img></div>
@@ -101,10 +100,6 @@
           <div class="cards"><img class="i" id="J"></img></div>
           <div class="cards"><img class="i" id="K"></img></div>
           <div class="cards"><img class="i" id="L"></img></div>
-          <!--div class="cards"><img class="i" id="M"></img></div>
-          <div class="cards"><img class="i" id="N"></img></div>
-          <div class="cards"><img class="i" id="O"></img></div>
-          <div class="cards"><img class="i" id="P"></img></div-->
       </div>
       <script>
           var board = 4 * 3;
@@ -117,15 +112,17 @@
           var cardDat = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
           var cardAns = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
           var cardImg = [];
+          var cardImg2 = [];
           var cardVal = [];
+          var cardVal2 = [];
           
           for (var i = 0; i != board / 2; i++)
           {
               var pick = Math.floor(Math.random() * cardDat.length);
               cardVal.push(cardDat[pick]);
-              cardVal.push(cardAns[pick]);
+              cardVal2.push(cardAns[pick]);
               cardImg.push(cardDat[pick]);
-              cardImg.push(cardAns[pick]);
+              cardImg2.push(cardAns[pick]);
               cardDat.splice(pick, 1);
               cardAns.splice(pick, 1);
           }
@@ -133,13 +130,22 @@
           var match = [];
           var deck = [];
           
-          for (var i = 0; i != board; i++)
+          for (var i = 0; i != board / 2; i++)
           {
               var pick = Math.floor(Math.random() * cardVal.length);
               deck.push(cardVal[pick]);
               imgs[i].src = ("Assets/" + cardImg[pick] + ".jpg");
               cardVal.splice(pick, 1);
               cardImg.splice(pick, 1);
+          }
+          
+          for (var i = board / 2; i != board; i++)
+          {
+              var pick = Math.floor(Math.random() * cardVal2.length);
+              deck.push(cardVal2[pick]);
+              imgs[i].src = ("Assets/" + cardImg2[pick] + ".jpg");
+              cardVal2.splice(pick, 1);
+              cardImg2.splice(pick, 1);
           }
           
           var cards = document.getElementsByClassName("cards");
@@ -227,14 +233,14 @@
           {
               if (select1 != -1)
               {
-                  cards[select1].style.backgroundColor = "lightpink";
+                  cards[select1].style.backgroundColor = "white";
                   imgs[select1].style.display = "block";
                   //cards[select1].innerHTML = deck[select1];
               }
               
               if (select2 != -1)
               {
-                  cards[select2].style.backgroundColor = "lightpink";
+                  cards[select2].style.backgroundColor = "white";
                   imgs[select2].style.display = "block";
                   //cards[select2].innerHTML = deck[select2];
               }
@@ -254,7 +260,7 @@
                       
                       for (var i = 0; i != match.length; i++)
                       {
-                          cards[match[i]].style.backgroundColor = "lightpink";
+                          cards[match[i]].style.backgroundColor = "white";
                           //cards[match[i]].innerHTML = deck[match[i]];
                           imgs[match[i]].style.display = "block";
                           delay = 75;
@@ -275,7 +281,7 @@
               
               for (var i = 0; i != match.length; i++)
               {
-                  cards[match[i]].style.backgroundColor = "lightpink";
+                  cards[match[i]].style.backgroundColor = "white";
                   //cards[match[i]].innerHTML = deck[match[i]];
                   imgs[match[i]].style.display = "block";
               }
@@ -293,8 +299,8 @@
               imgs[select1].style.display = "none";
               //cards[select2].innerHTML = " ";
               imgs[select2].style.display = "none";
-              cards[select1].style.backgroundColor = "hotpink";
-              cards[select2].style.backgroundColor = "hotpink";
+              cards[select1].style.backgroundColor = "darkred";
+              cards[select2].style.backgroundColor = "darkred";
               
               select1 = -1;
               select2 = -1;
