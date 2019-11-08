@@ -20,27 +20,33 @@
    #count
    {
        padding: auto;
-       height: 10%;
-       width: 100%;
+       height: count(10% - 16px);
+       width: count(100% - 16px);
        color: white;
        background-color: blue;
        text-align: center;
+       border-radius: 8px;
+       margin: 8px;
    }
    
    button
    {
-       width: 50%;
-       height: 90%;
+       width: calc(50% - 12px);
+       height: calc(90% - 16px);
        color: white;
        background-color: dodgerblue;
        padding: 0px;
+       margin: 8px;
        text-align: center;
        border: none;
+       outline: none;
+       border-radius: 8px;
    }
    
-   button:hover
+   button:active
    {
        background-color: lightblue;
+       transition: background-color 0.5s;
    }
    
    #inc
