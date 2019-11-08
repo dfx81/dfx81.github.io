@@ -91,43 +91,29 @@ var but2 = document.getElementById("dec");
 but1.addEventListener("click", inc);
 but2.addEventListener("click", dec);
 
-function update()
+firebase.database().ref("count").on("value", function(snapshot)
 {
-    firebase.database().ref("count").on("value", function(snapshot)
-    {
-        stat.innerHTML = "Count: " + snapshot.val();
-    });
-}
+    clicks = snapshot.val();
+    stat.innerHTML = "Count: " + clicks;
+});
 
 function inc()
 {
-    var curr;
-    firebase.database().ref("count").on("value", function(snapshot)
-    {
-        curr = snapshot.val();
-    });
+    clicks++;
     
-    curr++;
-    
-    firebase.database().ref().update({"count": curr});
-    update();
+    firebase.database().ref().update({"count": clicks});
+    //update();
 }
 
 function dec()
 {
-    var curr;
-    firebase.database().ref("count").on("value", function(snapshot)
-    {
-        curr = snapshot.val();
-    });
+    clicks--;
     
-    curr--;
-    
-    firebase.database().ref().update({"count": curr});
-    update();
+    firebase.database().ref().update({"count": clicks});
+    //update();
 }
 
-window.setInterval(update, 1000/60);
+//window.setInterval(update, 1000/60);
 </script>
 
 </body>
