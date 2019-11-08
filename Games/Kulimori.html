@@ -86,7 +86,7 @@
       </style>
   </head>
   <body id="b" style="background-color: red; width: 100%; height: 100%; overflow: hidden; touch-action: none; padding: 0; margin: 0;">
-      <div class="header">Kulimori | Score: 5000</div>
+      <div class="header">Kulimori | Score: 3000</div>
       <div class="board">
           <div class="cards"><img class="i" id="A"></img></div>
           <div class="cards"><img class="i" id="B"></img></div>
@@ -314,7 +314,7 @@
           var time = 0;
           var last = Date.now();
           var now = 0;
-          var pts = 5000;
+          var pts = 3000;
           
           function score()
           {
@@ -333,7 +333,7 @@
                   pStr = Math.floor(pts);
               
               document.getElementsByClassName("header")[0].innerHTML = "Kulimori | Score: " + pStr;
-              if (match.length != board) window.requestAnimationFrame(score);
+              if (match.length != board * 5) window.requestAnimationFrame(score);
           }
       </script>
   </body>

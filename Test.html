@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+<title>Test</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    *
+    {
+        font-size: 7vh;
+    }
+    
+    html, body
+    {
+        margin: 0px;
+        width: 100%;
+        height: 100%;
+        padding: 0px;
+    }
+    
+   #count
+   {
+       padding: auto;
+       height: 10%;
+       width: 100%;
+       color: white;
+       background-color: blue;
+       text-align: center;
+   }
+   
+   button
+   {
+       width: 50%;
+       height: 90%;
+       color: white;
+       background-color: dodgerblue;
+       padding: 0px;
+       text-align: center;
+       border: none;
+   }
+   
+   button:hover
+   {
+       background-color: lightblue;
+   }
+   
+   #inc
+   {
+       position: absolute;
+       top: calc(10%);
+       left: 0px;
+   }
+   
+   #dec
+   {
+       position: absolute;
+       top: calc(10%);
+       right: 0px;
+   }
+</style>
+</head>
+<body>
+<div id="count">Loading</div>
+<button id="inc" type="button">++</button>
+<button id="dec" type="button">--</button>
+
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-database.js"></script>
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBNBl-fljoGawdkffCoaDWx28CGyw0xotE",
+    authDomain: "backend-f065b.firebaseapp.com",
+    databaseURL: "https://backend-f065b.firebaseio.com",
+    projectId: "backend-f065b",
+    storageBucket: "backend-f065b.appspot.com",
+    messagingSenderId: "254429469958",
+    appId: "1:254429469958:web:cc12c2259a9f702f09d287",
+    measurementId: "G-49PW0LPL9M"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
+<script>
+var clicks = 0;
+var stat = document.getElementById("count");
+var but1 = document.getElementById("inc");
+var but2 = document.getElementById("dec");
+but1.addEventListener("click", inc);
+but2.addEventListener("click", dec);
+
+function update()
+{
+    firebase.database().ref("count").on("value", function(snapshot)
+    {
+        stat.innerHTML = "Count: " + snapshot.val();
+    });
+}
+
+function inc()
+{
+    var curr;
+    firebase.database().ref("count").on("value", function(snapshot)
+    {
+        curr = snapshot.val();
+    });
+    
+    curr++;
+    
+    firebase.database().ref().update({"count": curr});
+    update();
+}
+
+function dec()
+{
+    var curr;
+    firebase.database().ref("count").on("value", function(snapshot)
+    {
+        curr = snapshot.val();
+    });
+    
+    curr--;
+    
+    firebase.database().ref().update({"count": curr});
+    update();
+}
+
+window.setInterval(update, 1000/60);
+</script>
+
+</body>
+</html>
