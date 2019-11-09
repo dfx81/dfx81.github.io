@@ -53,10 +53,13 @@
 
           .nme
           {
-            width: 100%;
-            height: 100%;
-            font-size: 0.5em;
-            padding: calc(50% - 16px - 3 * 0.25em - 0.5em) 16px;
+              width: 100%;
+              height: 100%;
+              font-size: 0.5em;
+              padding: calc(50% - 16px - 4 * 0.25em) 16px;
+              //padding: auto;
+              //text-align: center;
+              //margin: auto;
           }
           
           .board
@@ -96,12 +99,12 @@
           <div class="cards"><img class="i" id="D"></img></div>
           <div class="cards"><img class="i" id="E"></img></div>
           <div class="cards"><img class="i" id="F"></img></div>
-          <div class="cards"><img class="i nme" id="G"></img></div>
-          <div class="cards"><img class="i nme" id="H"></img></div>
-          <div class="cards"><img class="i nme" id="I"></img></div>
-          <div class="cards"><img class="i nme" id="J"></img></div>
-          <div class="cards"><img class="i nme" id="K"></img></div>
-          <div class="cards"><img class="i nme" id="L"></img></div>
+          <div class="cards"><div class="i nme" id="G"></div></div>
+          <div class="cards"><div class="i nme" id="H"></div></div>
+          <div class="cards"><div class="i nme" id="I"></div></div>
+          <div class="cards"><div class="i nme" id="J"></div></div>
+          <div class="cards"><div class="i nme" id="K"></div></div>
+          <div class="cards"><div class="i nme" id="L"></div></div>
       </div>
       <script>
           var board = 4 * 3;
@@ -110,6 +113,7 @@
           var select2 = -1;
           
           var imgs = document.getElementsByClassName("i");
+          var nme = document.getElementsByClassName("nme");
           
           var cardDat = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
           var cardAns = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
@@ -147,12 +151,14 @@
               cardImg.splice(pick, 1);
           }
           
+          
           for (var i = board / 2; i != board; i++)
           {
               var pick = Math.floor(Math.random() * cardVal2.length);
               deck.push(cardVal2[pick]);
               imgs[i].src = ("Assets/" + cardImg2[pick] + ".png");
               imgs[i].alt = cardChosen[pick];
+              nme[i - board / 2].innerHTML = cardChosen[pick];
               cardVal2.splice(pick, 1);
               cardImg2.splice(pick, 1);
               cardChosen.splice(pick, 1);
