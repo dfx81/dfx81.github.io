@@ -66,6 +66,7 @@
           
           .board
           {
+              //transition: display 0.25s;
               width: 100%;
               height: calc(100% - 8vh - 2px);
               align-items: stretch;
@@ -89,11 +90,18 @@
               margin: 0px;
               margin-bottom: 4px;
               font-size: 4vh;
+              transition: height 0.5s;
+          }
+          
+          a, a:active
+          {
+              text-decoration: none;
+              color: yellow;
           }
       </style>
   </head>
-  <body id="b" style="background-color: red; width: 100%; height: 100%; overflow: hidden; touch-action: none; padding: 0; margin: 0;">
-      <div class="header">Kulimori | Score: 3000</div>
+  <body id="b" style="background-color: red; width: 100%; height: 100%; touch-action: none; padding: 0; margin: 0;">
+      <div class="header">Kulimori | Skor: 3000</div>
       <div class="board">
           <div class="cards"><img class="i" id="A"></img></div>
           <div class="cards"><img class="i" id="B"></img></div>
@@ -152,7 +160,6 @@
               cardVal.splice(pick, 1);
               cardImg.splice(pick, 1);
           }
-          
           
           for (var i = board / 2; i != board; i++)
           {
@@ -350,8 +357,35 @@
               else
                   pStr = Math.floor(pts);
               
-              document.getElementsByClassName("header")[0].innerHTML = "Kulimori | Score: " + pStr;
+              document.getElementsByClassName("header")[0].innerHTML = "Kulimori | Skor: " + pStr;
               if (match.length != board * 5) window.requestAnimationFrame(score);
+              else
+              {
+                  var newRec = false;
+                  var head = document.getElementsByClassName("header")[0];
+                  head.style.height = "100%";
+                  
+                  if (pStr > window.localStorage.best)
+                  {
+                      window.localStorage.best = pStr;
+                      newRec = true;
+                  }
+                  
+                  head.innerHTML += "<br/><br/><br/>Skor Anda: " + pStr;
+                  if (newRec)
+                  {
+                      head.innerHTML += " (BARU)";
+                      head.innerHTML += "<br/><br/>Skor Terbaik: " + window.localStorage.best;
+                  }
+                  
+                  else
+                  {
+                      head.innerHTML += "<br/><br/>Skor Terbaik: " + window.localStorage.best;
+                      head.innerHTML += "<br/><br/>Tingkatkan usaha anda!";
+                  }
+                  
+                  head.innerHTML += "<br/><br/><br/><a href=\"Index.html\">Balik</a>";
+              }
           }
       </script>
   </body>
