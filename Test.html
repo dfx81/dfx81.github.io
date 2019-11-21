@@ -1,126 +1,128 @@
 <!doctype html>
-<html>
+<html style="height: 100%; width: 100%; padding: 0px; margin: 0px;">
 <head>
 <title>Test</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-    *
-    {
-        font-size: 7vh;
-    }
-    
-    html, body
-    {
-        margin: 0px;
-        width: 100%;
-        height: 100%;
-        padding: 0px;
-    }
-    
-   #count
-   {
-       padding: auto;
-       height: count(10% - 16px);
-       width: count(100% - 16px);
-       color: white;
-       background-color: blue;
-       text-align: center;
-       border-radius: 8px;
-       margin: 8px;
-   }
-   
-   button
-   {
-       width: calc(50% - 12px);
-       height: calc(90% - 16px);
-       color: white;
-       background-color: dodgerblue;
-       padding: 0px;
-       margin: 8px;
-       text-align: center;
-       border: none;
-       outline: none;
-       border-radius: 8px;
-   }
-   
-   button:active
-   {
-       background-color: lightblue;
-       transition: background-color 0.5s;
-   }
-   
-   #inc
-   {
-       position: absolute;
-       top: calc(10%);
-       left: 0px;
-   }
-   
-   #dec
-   {
-       position: absolute;
-       top: calc(10%);
-       right: 0px;
-   }
 </style>
 </head>
-<body>
-<div id="count">Loading</div>
-<button id="inc" type="button">++</button>
-<button id="dec" type="button">--</button>
-
+<body style="touch-action: none; overflow: hidden; width: 100%; height: 100%; margin: 0px; padding: 0px;">
+<div style="/*background-color: green;*/ width: 100%; height: calc(90% - 4px); padding: 0px; margin: 0px;">
+<pre id="chats" style="white-space: pre-wrap; overflow-y: auto; overflow-x: hidden; word-break: break-word; margin: 4px 4px 0px 4px; padding: 4px; height: calc(100% - 12px); width: calc(100% - 18px); border: 1px solid black; border-radius: 8px;">Loading...</pre>
+</div>
+<div style="/*background-color: blue;*/ padding: 0px; width: calc(100%); height: calc(10%); margin: 0px; display: flex;">
+<textarea maxlength="140" placeholder="Start chatting" id="input" style="resize: none; /*height: calc(100% - 8px);*/ width: calc(90% - 16px); border: 1px solid black; border-right: 0.5px solid black; border-radius: 8px 0px 0px 8px; margin: 2px 0px 4px 4px;"></textarea>
+<button onclick="update()" style="padding: 0px; margin: 2px 4px 4px 0px; /*height: calc(100% - 16px);*/ width: calc(20% - 16px); border: 1px solid black; border-left: 0.5px solid black; border-radius: 0px 8px 8px 0px;">Send</button>
+</div>
 <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-database.js"></script>
 <script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyBNBl-fljoGawdkffCoaDWx28CGyw0xotE",
+var firebaseConfig = {
+    apiKey: "AIzaSyBNBl-fljoGawdkffCoaDWx28CGyw0xotE",
     authDomain: "backend-f065b.firebaseapp.com",
-    databaseURL: "https://backend-f065b.firebaseio.com",
+    databaseURL: "https://backend-f065b.firebaseio.com",
     projectId: "backend-f065b",
-    storageBucket: "backend-f065b.appspot.com",
+    storageBucket: "backend-f065b.appspot.com",
     messagingSenderId: "254429469958",
-    appId: "1:254429469958:web:cc12c2259a9f702f09d287",
-    measurementId: "G-49PW0LPL9M"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-</script>
+    appId: "1:254429469958:web:cc12c2259a9f702f09d287",
+    measurementId: "G-49PW0LPL9M"
+};
 
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+</script>
 <script>
-var clicks = 0;
-var stat = document.getElementById("count");
-var but1 = document.getElementById("inc");
-var but2 = document.getElementById("dec");
-but1.addEventListener("click", inc);
-but2.addEventListener("click", dec);
+var db = firebase.database().ref();
+var chats = document.getElementById("chats");
+var input = document.getElementById("input");
 
-firebase.database().ref("count").on("value", function(snapshot)
-{
-    clicks = snapshot.val();
-    stat.innerHTML = "Count: " + clicks;
-});
+var roomId;
+var roomKey;
+var name;
+var members;
 
-function inc()
+window.onload = setup(roomId);
+
+function setup(roomId)
 {
-    clicks++;
+    name = window.prompt("Enter your username");
     
-    firebase.database().ref().update({"count": clicks});
-    //update();
+    roomId = "";
+    while (roomId == "")
+    {
+        roomId = window.prompt("Enter Room ID (-1 = New Room)");
+        if (roomId === null || roomId.indexOf(" ") != -1) roomId = "";
+    }
+    
+    if (roomId == -1)
+    {
+        roomId = Date.now().toString(36);
+        chats.innerHTML = "Room ID: " + roomId + "<br/>";
+        roomKey = db.child("social").push({"members": 1, "roomId": roomId, "messages": {}}).key;
+        db.child("social/" + roomKey + "/messages").push({"name": "System", "content": name + " joined the room"});
+        
+        db.child("social/" + roomKey + "/messages").on("child_added", function(snap)
+        {
+            chats.innerHTML += snap.val().name + ":<br/>" + snap.val().content + "<br/><br/>";
+        });
+        
+        db.child("social/" + roomKey).once("value", function(snap)
+        {
+            members = snap.val().members;
+            members--;
+            
+            if (members > 0) db.child("social/" + roomKey).onDisconnect().update({"members": members});
+            else if (members <= 0) db.child("social/" + roomKey).onDisconnect().remove();
+        });
+    }
+    
+    else
+    {
+        db.child("social").orderByChild("roomId").equalTo(roomId).once("value", function(snap)
+        {
+            var found = false;
+            snap.forEach(function(child)
+            {
+                if (child.val().roomId == roomId)
+                {
+                    chats.innerHTML = "Room ID: " + roomId + "<br/>";
+                    roomKey = child.key;
+                    found = true;
+                }
+            });
+            
+            if (!found) chats.innerHTML = "Room not found...<br/>";
+            
+            db.child("social/" + roomKey).once("value", function(snap)
+            {
+                members = snap.val().members;
+                members++;
+                db.child("social/" + roomKey).update({"members": members});
+                members--;
+                
+                if (members > 0) db.child("social/" + roomKey).onDisconnect().update({"members": members});
+                else if (members <= 0) db.child("social/" + roomKey).onDisconnect().remove();
+            });
+            
+            db.child("social/" + roomKey + "/messages").push({"name": "System", "content": name + " joined the room"});
+            
+            db.child("social/" + roomKey + "/messages").on("child_added", function(snap)
+            {
+                chats.innerHTML += snap.val().name + ":<br/>" + snap.val().content + "<br/><br/>";
+            });
+        });
+    }
 }
 
-function dec()
+function update()
 {
-    clicks--;
-    
-    firebase.database().ref().update({"count": clicks});
-    //update();
+    if (input.value.length != 0)
+    {
+        db.child("social/" + roomKey + "/messages").push({"name": name, "content": input.value});
+        input.value = "";
+    }
 }
-
-//window.setInterval(update, 1000/60);
 </script>
-
 </body>
 </html>
