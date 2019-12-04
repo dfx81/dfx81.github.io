@@ -63,7 +63,13 @@ function remap(evt)
 
 function update()
 {
+    var log = document.getElementById("log");
+    
     check.push(start);
+    
+    log.innerHTML = "Start: " + start + " | Goal: " + end + "<br/><br/>";
+    log.innerHTML += check + "<br/>";
+    
     nodes[start].global = nodes[end].x - nodes[start].x + nodes[end].y - nodes[start].y;
     nodes[start].local = 0;
     
@@ -132,6 +138,7 @@ function update()
         }
         
         check.splice(0, 1);
+        log.innerHTML += check + "<br/>";
     }
     
     ctx.fillStyle = "blue";
@@ -148,5 +155,6 @@ function update()
 </head>
 <body>
 <canvas width="400" height="300" id="c"></canvas>
+<p id="log"></p>
 </body>
 </html>
