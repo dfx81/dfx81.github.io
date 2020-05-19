@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+<title>Snake VS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="stylesheet" type="text/css" href="styles.css"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"/>
+<script src="scripts.js"></script>
+</head>
+<body>
+<div class="panel" id="disclaimer">
+<div id="info" class="inner">
+<h1>Snake VS</h1>
+<p>
+  <b>Snake VS</b> is a the same classic snake
+  game that everyone loves. Popularized by its
+  inclusion with <b>Nokia 3310</b>, this
+  fanmade version intends to relive the old
+  high-score based competitive spirit with
+  modern technology. Now, every scores are
+  collected into a leaderboard so everyone can
+  compete for the top spot.<br/><br/>
+  Before the game can be played, an account
+  must be created.
+</p>
+<a id="signup" onclick="showForm()"><b>Create new account</b></a>
+</div>
+<div id="form" class="inner">
+<h1>Sign Up</h1>
+<b>Username</b>
+<input id="name" type="text"></input>
+<b>Email</b>
+<input id="email" type="email"></input>
+<b>Password</b>
+<input id="pword" type="password"></input>
+<a id="create" onclick="create()"><b>Continue</b></a>
+</div>
+<div id="policy" class="inner">
+<h1>Privacy Policy</h1>
+<p>
+  Before the account can be created, you must
+  read and agree with our <a onclick="showPolicy()"><b>Privacy
+  Policy</b></a>. If you're a minor, please get
+  your parents or your guardians to handle this
+  part of registration.
+</p>
+<input id="agree" type="checkbox"></input>
+<p>I agree to the points stated in the privacy policy</p><br/>
+<input id="news" type="checkbox"></input>
+<p>I want to avoid joining the newsletter for the latest info about the service such as latest leaderboard standings.</p><br/>
+<input id="read" type="checkbox"></input>
+<p>I'm affirmative that I definitely did not read the privacy policy.</p><br/>
+<input id="understand" type="checkbox"></input>
+<p>I understand all SEVEN points in the privacy policy</p><br/>
+<input id="cookies" type="checkbox"></input>
+<p>I'm allowing the use of cookies by using this service.</p><br/>
+<a onclick="decline()"><b>Decline</b></a>
+<b>&nbsp; | &nbsp;</b>
+<a onclick="accept(true)"><b>Accept</b></a>
+</div>
+<div id="result" class="inner">
+<code id="data"></code>
+</div>
+</div>
+</body>
+</html>
+
+<!--iframe width="100%" height="56.25%" src="https://www.youtube.com/embed/dQw4w9WgXcQ?&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe-->
