@@ -77,7 +77,7 @@ function accept(tricked){
     if (tricked)
     {
         str += "Agreed to ridiculous policies?: " + agree.value + "<br/>";
-        str += "Joined newsletter that can't be unsubscribed from?: " + news.value + "<br/>";
+        str += "Did not join the newsletter that can't be unsubscribed from?: " + news.value + "<br/>";
         str += "Admit did not read the policy?: " + read.value + "<br/>";
         str += "Admit the existence of a point that did not exist in the policy?: " + understand.value + "<br/>";
         str += "Accept cookies?: " + cookies.value + "<br/>";
