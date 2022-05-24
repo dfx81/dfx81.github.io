@@ -44,6 +44,8 @@
             
     function down(event)
     {
+        event.stopPropagation();
+        event.preventDefault();
         touch = true;
         x = event.touches[0].clientX;
         y = event.touches[0].clientY;
@@ -51,6 +53,8 @@
             
     function downKb(event)
     {
+        event.stopPropagation();
+        event.preventDefault();
         key = true;
         move = true;
         if (event.keyCode == 37)
@@ -66,6 +70,8 @@
 
     function move(event)
     {
+        event.stopPropagation();
+        event.preventDefault();
         touch = true;
         x = event.touches[0].clientX;
         y = event.touches[0].clientY;
