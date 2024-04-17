@@ -4,7 +4,7 @@
 
 * {
     font-family: "Poppins", sans-serif;
-    font-display: block;
+    font-display: optional;
     box-sizing: border-box;
     line-height: 1.6;
     margin: 0px;
@@ -183,7 +183,7 @@ header > img {
 }
 
 .email > img {
-    width: 16px;
+    width: 12px;
 }
 
 footer {
