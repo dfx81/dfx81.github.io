@@ -1,159 +1,73 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <title>Card Hunt</title>
-    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
-    <link href="styles.css" rel="stylesheet"/>
-    <script src="script.js" async></script>
-  </head>
-  <body>
-    <div class="overlay visible">
-      CARD HUNT
-      <span class="overlay-subtext anim">CLICK TO PLAY</span>
-    </div>
-    <div id="result" class="overlay">
-      GAME OVER<br/>
-      <span class="overlay-subtext">Your Score: <span id="final-score">0</span></span>
-      <span class="overlay-subtext anim"><br/>CLICK TO RETRY</span>
-    </div>
-    <div class="game-board">
-      <div class="game-info-container">
-        <div class="game-info">
-          TIME: <span id="timer">100</span>
-        </div>
-        <div class="game-info">
-          FLIPS: <span id="flips">0</span>
-        </div>
-      </div>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scaleable=false"/>
+  <title>Kulimori</title>
+  <style>
+    *
+    {
+      color: white;
+    }
 
-      <div class="card">
-        <div class="card-face card-back">
-          <div class="card-icon">?</div>
-        </div>
-        <div class="card-face card-front">
-          <div class="card-val">A</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-face card-back">
-          <div class="card-icon">?</div>
-        </div>
-        <div class="card-face card-front">
-          <div class="card-val">a</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-face card-back">
-          <div class="card-icon">?</div>
-        </div>
-        <div class="card-face card-front">
-          <div class="card-val">B</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-face card-back">
-          <div class="card-icon">?</div>
-        </div>
-        <div class="card-face card-front">
-          <div class="card-val">b</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-face card-back">
-          <div class="card-icon">?</div>
-        </div>
-        <div class="card-face card-front">
-          <div class="card-val">C</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-face card-back">
-          <div class="card-icon">?</div>
-        </div>
-        <div class="card-face card-front">
-          <div class="card-val">c</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-face card-back">
-          <div class="card-icon">?</div>
-        </div>
-        <div class="card-face card-front">
-          <div class="card-val">D</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-face card-back">
-          <div class="card-icon">?</div>
-        </div>
-        <div class="card-face card-front">
-          <div class="card-val">d</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-face card-back">
-          <div class="card-icon">?</div>
-        </div>
-        <div class="card-face card-front">
-          <div class="card-val">E</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-face card-back">
-          <div class="card-icon">?</div>
-        </div>
-        <div class="card-face card-front">
-          <div class="card-val">e</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-face card-back">
-          <div class="card-icon">?</div>
-        </div>
-        <div class="card-face card-front">
-          <div class="card-val">F</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-face card-back">
-          <div class="card-icon">?</div>
-        </div>
-        <div class="card-face card-front">
-          <div class="card-val">f</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-face card-back">
-          <div class="card-icon">?</div>
-        </div>
-        <div class="card-face card-front">
-          <div class="card-val">G</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-face card-back">
-          <div class="card-icon">?</div>
-        </div>
-        <div class="card-face card-front">
-          <div class="card-val">g</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-face card-back">
-          <div class="card-icon">?</div>
-        </div>
-        <div class="card-face card-front">
-          <div class="card-val">H</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-face card-back">
-          <div class="card-icon">?</div>
-        </div>
-        <div class="card-face card-front">
-          <div class="card-val">h</div>
-        </div>
-      </div>
-    </div>
-  </body>
+    body
+    {
+      width: 100%;
+      height: 100%;
+      padding: 0px;
+      margin: 0px;
+      background-color: red;
+    }
+
+    .header
+    {
+      background-color: darkblue;
+      padding: 8px;
+      color: yellow;
+    }
+
+    .selection
+    {
+      background-color: darkred;
+      width: 45%;
+      padding: 8px;
+      margin: 8px;
+      border-radius: 8px;
+    }
+
+    .selection:active, .selection:hover
+    {
+      width: 50%;
+      background-color: white;
+      color: darkblue;
+      transition: background-color 0.25s;
+      transition: width 0.25s;
+    }
+
+    a
+    {
+      text-decoration: none;
+    }
+  </style>
+  <script>
+      if (window.localStorage.best)
+      {
+          console.log(window.localStorage.best);
+      }
+      
+      else
+      {
+          window.localStorage.best = 0;
+      }
+  </script>
+</head>
+<body>
+  <div class="header">
+    Kulimori App
+  </div>
+  <a href="Cards.html"><div class="selection">Lihat Kad</div></a>
+  <a href="Kulimori.html"><div class="selection">Main Kulimori</div></a>
+  <div class="selection">
+    Lihat Markah
+  </div>
+</body>
 </html>
