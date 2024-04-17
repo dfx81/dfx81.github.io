@@ -138,11 +138,11 @@ header {
     gap: 4px;
     justify-content: space-between;
     align-items: center;
-    opacity: 0;
+    opacity: 0.001;
 }
 
 .content {
-    opacity: 0;
+    opacity: 0.001;
 
     display: grid;
     gap: 8px;
@@ -191,7 +191,7 @@ footer {
     left: 0px;
     right: -0px;
     bottom: 16px;
-    opacity: 0;
+    opacity: 0.001;
 }
 
 .header.fade-in, .footer.fade-in {
