@@ -4,7 +4,7 @@
 
 * {
     font-family: "Poppins", sans-serif;
-    font-display: swap;
+    font-display: block;
     box-sizing: border-box;
     line-height: 1.6;
     margin: 0px;
@@ -149,7 +149,7 @@ header {
 }
 
 .content.slide-in {
-    animation: slide-in .5s ease-out forwards;
+    animation: slide-in 1s ease-out forwards;
 }
 
 .section-head {
@@ -195,7 +195,7 @@ footer {
 }
 
 .header.fade-in, .footer.fade-in {
-    animation: fade-in .5s ease-out forwards;
+    animation: fade-in 1s ease-out forwards;
 }
 
 @media (min-width: 700px) {
