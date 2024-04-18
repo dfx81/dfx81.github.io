@@ -3,18 +3,10 @@
  */
 
 @font-face {
-    font-family: "Lexend Deca / Josefin Sans";
+    font-family: "Lexend Deca";
     src: url("/assets/fonts/Lexend_Deca/LexendDeca-VariableFont_wght.ttf");
     font-weight: 100 900;
     font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Lexend Deca / Josefin Sans";
-    src: url("/assets/fonts/Josefin_Sans/JosefinSans-Italic-VariableFont_wght.ttf");
-    font-weight: 100 700;
-    font-style: italic;
     font-display: swap;
 }
 
@@ -23,7 +15,7 @@
  */
 
 * {
-    font-family: "Lexend Deca / Josefin Sans", sans-serif;
+    font-family: "Lexend Deca", sans-serif;
     box-sizing: border-box;
     line-height: 1.6;
     margin: 0px;
