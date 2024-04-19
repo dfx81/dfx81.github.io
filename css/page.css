@@ -1,0 +1,25 @@
+.container {
+    overflow-y: auto;
+}
+
+.header, .footer {
+    position: sticky;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+}
+
+.content {
+    width: 100%;
+    margin-inline: auto !important;
+    margin-block: 16px;
+    padding-inline: 16px;
+    text-align: start;
+}
+
+.content > * {
+    margin-block-end: 8px;
+}
+
+.content p {
+    max-width: 80ch;
+}

@@ -3,10 +3,13 @@ window.onload = () => {
     console.log("Site v1.0");
 
     let mail = document.querySelector(".email > .small");
-    let formattedMail = mail.innerText.replace(" [at] ", "@").replace(" [dot] ", ".");
 
-    mail.innerText = formattedMail;
-    mail.href = "mailto:" + formattedMail;
+    if (mail) {
+        let formattedMail = mail.innerText.replace(" [at] ", "@").replace(" [dot] ", ".");
+
+        mail.innerText = formattedMail;
+        mail.href = "mailto:" + formattedMail;
+    }
 
     document.querySelector(".content").classList.add("slide-in");
     document.querySelector(".header").classList.add("fade-in");
