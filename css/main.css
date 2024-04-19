@@ -129,6 +129,7 @@ hr {
     border: 1px solid var(--on-primary);
     margin-block: 4px 8px;
     height: 2px;
+    background-color: var(--on-primary);
 }
 
 li {
