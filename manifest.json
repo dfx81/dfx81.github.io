@@ -8,9 +8,14 @@
       "type": "image/svg+xml"
     },
     {
-      "src": "assets/site-favicon.png",
+      "src": "assets/site-favicon-512.png",
       "type": "image/png",
-      "sizes": "512x512 192x192"
+      "sizes": "512x512"
+    },
+    {
+      "src": "assets/site-favicon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
     }
   ],
   "start_url": "/?client=pwa",
