@@ -1,6 +1,6 @@
 window.onload = () => {
     console.log("Website programmed & designed by Danial 'dfx' Fitri.");
-    console.log("Site v1.0");
+    console.log("Site v1.0, Cache v202404190001");
 
     let mail = document.querySelector(".email > .small");
 
