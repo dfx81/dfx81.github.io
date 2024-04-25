@@ -308,11 +308,17 @@ main .buttons:not(.nav)>a>img {
         display: block;
     }
 
-    .container > * {
+    .container>* {
         padding-inline: 10%;
     }
 
     .content {
         margin-block: 32px;
+    }
+}
+
+@media (min-width: 2560px) {
+    body {
+        font-size: 1.3em;
     }
 }
