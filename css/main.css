@@ -68,6 +68,7 @@
 
 :root {
     --primary: #faf3dd;
+    --primary-transparent: #faf3dd81;
     --secondary: #6685e9;
     --accent: #df928e;
     --on-primary: #4a5043;
@@ -79,6 +80,7 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --primary: #061a40;
+        --primary-transparent: #061a4081;
         --secondary: #df928e;
         --accent: #6685e9;
         --on-primary: #faf3dd;
@@ -306,7 +308,7 @@ main .buttons:not(.nav)>a>img {
         display: block;
     }
 
-    .container {
+    .container > * {
         padding-inline: 10%;
     }
 
