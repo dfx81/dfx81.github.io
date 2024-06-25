@@ -322,3 +322,7 @@ main .buttons:not(.nav)>a>img {
         font-size: 1.3em;
     }
 }
+
+.hidden {
+    display: none;
+}
