@@ -324,5 +324,9 @@ main .buttons:not(.nav)>a>img {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
+}
+
+.hidden * {
+    display: none !important;
 }
